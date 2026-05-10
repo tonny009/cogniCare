@@ -16,3 +16,7 @@ const upload = multer({ storage: storage })
 const uplaodToCoudinary=async(file: Express.Multer.File) =>{
 
 }
+
+export const fileUploader = {
+    upload
+}
