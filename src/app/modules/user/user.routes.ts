@@ -13,7 +13,6 @@ router.post(
         req.body= UserValidation.createPatientValidationSchema.parse(JSON.parse(req.body.data))
     return UserController.createPatient(req, res, next) // parsing the stringified data and validating it
     },
-    UserController.createPatient
 )
 
 export const userRoutes= router;
