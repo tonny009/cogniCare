@@ -11,6 +11,12 @@ https://www.npmjs.com/package/cloudinary
 Zod validatoion : https://www.npmjs.com/package/zod?activeTab=code
 (Zod is used for validation and parse input objects)
 
+For login authentication :
+
+Jwt token : https://www.npmjs.com/package/jsonwebtoken
+
+
+
 
 
 
