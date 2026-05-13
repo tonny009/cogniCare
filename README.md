@@ -1,5 +1,7 @@
 Backend technology Details: 
 
+'Moduler MVC' pattern is followed in this project.
+
 Multer install: https://www.npmjs.com/package/multer. 
 
 Cloudinary install : https://console.cloudinary.com/app/c-301ca67844ea6df888e5e5103ce456/home/dashboard
