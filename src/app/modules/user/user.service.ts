@@ -1,5 +1,5 @@
 
-import { Prisma } from "@prisma/client";
+import { Prisma, UserRole } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { Request } from "express";
 import { prisma } from "../../shared/prisma";
@@ -32,9 +32,67 @@ const createPatient = async (req: Request)=> {
     })
 
     return result;
+}
+
+const createAdmin = async (req: Request)=> {
+    console.log("payload:", req.body)
+
+    if (req.file) {
+        const uploadResult = await fileUploader.uploadToCloudinary(req.file)
+        console.log("Cloudinary upload result:", {uploadResult})
+        req.body.admin.profilePhoto = uploadResult?.secure_url
+    }
+
+    const hashPassword = await bcrypt.hash(req.body.password, 10);
+
+    const result = await prisma.$transaction(async (tnx) => {
+        await tnx.user.create({
+            data: {
+                email: req.body.admin.email,
+                password: hashPassword,
+                role: UserRole.ADMIN,            
+            }
+        });
+
+        return await tnx.admin.create({
+            data: req.body.admin
+        })
+    })
+
+    return result;
+
+}
+
+const createDoctor = async (req: Request)=> {
+    //console.log("payload:", req.body)
+
+    if (req.file) {
+        const uploadResult = await fileUploader.uploadToCloudinary(req.file)
+        console.log("Cloudinary upload result:", {uploadResult})
+        req.body.doctor.profilePhoto = uploadResult?.secure_url
+    }
+
+    const hashPassword = await bcrypt.hash(req.body.password, 10);
+
+    const result = await prisma.$transaction(async (tnx) => {
+        await tnx.user.create({
+            data: {
+                email: req.body.doctor.email,
+                password: hashPassword,
+                role: UserRole.DOCTOR,            
+            }
+        });
+
+        return await tnx.doctor.create({
+            data: req.body.doctor
+        })
+    })
+    return result;
 
 }
 
 export const UserService = {
-    createPatient
+    createPatient,
+    createAdmin,
+    createDoctor
 }

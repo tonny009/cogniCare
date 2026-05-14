@@ -15,4 +15,22 @@ router.post(
     },
 )
 
+router.post(
+    "/create-admin",
+    fileUploader.upload.single("file"), // for single file upload with field name "profileImage"
+    (req: Request, res: Response, next: NextFunction) => {
+        req.body= UserValidation.createAdminValidationSchema.parse(JSON.parse(req.body.data))
+    return UserController.createAdmin(req, res, next) // parsing the stringified data and validating it
+    },
+)
+
+router.post(
+    "/create-doctor",
+    fileUploader.upload.single("file"), // for single file upload with field name "profileImage"
+    (req: Request, res: Response, next: NextFunction) => {
+        req.body= UserValidation.createDoctorValidationSchema.parse(JSON.parse(req.body.data))
+    return UserController.createDoctor(req, res, next) // parsing the stringified data and validating it
+    },
+)
+
 export const userRoutes= router;
