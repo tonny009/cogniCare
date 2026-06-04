@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import catchAsync from "../../shared/catchAsync";
 import { UserService } from "./user.service";
 import sendResponse from "../../shared/sendResponse";
+import pick from "../../helper/pick";
 
 const createPatient= catchAsync(async(req:Request,res:Response)=>{
     //console.log(req.body);
@@ -45,10 +46,28 @@ const createDoctor= catchAsync(async(req:Request,res:Response)=>{
 }
 )
 
+const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
+    //const filters = pick(req.query, userFilterableFields) // searching , filtering
+    const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]) // pagination and sorting
+
+    const result = await UserService.getAllFromDB();
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "User retrive successfully!",
+        //meta: result.meta,
+        data: result
+    })
+})
+
+
+
 export const UserController = {
     createPatient,
     createAdmin,
-    createDoctor
+    createDoctor,
+    getAllFromDB
 }
 
 //http://localhost:3000/api/v1/user/create-patient

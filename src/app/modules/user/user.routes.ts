@@ -6,6 +6,10 @@ import { UserValidation } from "./user.validation";
 
 const router = express.Router();
 
+router.get(
+    "/", UserController.getAllFromDB
+) // for testing purpose, to get all the users from the database, we will remove this later
+
 router.post(
     "/create-patient",
     fileUploader.upload.single("file"), // for single file upload with field name "profileImage"

@@ -91,8 +91,17 @@ const createDoctor = async (req: Request)=> {
 
 }
 
+
+const getAllFromDB = async () => {
+    const result= await prisma.user.findMany()
+    return result;
+    
+}
+
+
 export const UserService = {
     createPatient,
     createAdmin,
-    createDoctor
+    createDoctor,
+    getAllFromDB
 }
