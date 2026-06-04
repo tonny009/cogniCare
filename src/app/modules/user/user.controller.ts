@@ -3,6 +3,7 @@ import catchAsync from "../../shared/catchAsync";
 import { UserService } from "./user.service";
 import sendResponse from "../../shared/sendResponse";
 import pick from "../../helper/pick";
+import { userFilterableFields } from "./user.constant";
 
 const createPatient= catchAsync(async(req:Request,res:Response)=>{
     //console.log(req.body);
@@ -47,16 +48,17 @@ const createDoctor= catchAsync(async(req:Request,res:Response)=>{
 )
 
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
-    //const filters = pick(req.query, userFilterableFields) // searching , filtering
-    const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]) // pagination and sorting
 
-    const result = await UserService.getAllFromDB();
+    const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]) // pagination and sorting
+    const filters = pick(req.query, userFilterableFields) // searching , filtering
+
+    const result = await UserService.getAllFromDB(filters, options); // calling service function to get data from database
 
     sendResponse(res, {
         statusCode: 200,
         success: true,
         message: "User retrive successfully!",
-        //meta: result.meta,
+        meta: result.meta,
         data: result
     })
 })
