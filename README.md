@@ -15,6 +15,10 @@ For login authentication :
 
 Jwt token : https://www.npmjs.com/package/jsonwebtoken
 
+For date format in schedule part: Used 'date-fns'
+https://www.npmjs.com/package/date-fns
+
+
 
 
 
