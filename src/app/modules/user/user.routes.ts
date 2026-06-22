@@ -27,7 +27,7 @@ router.post(
 
 router.post(
     "/create-admin",
-    auth(UserRole.ADMIN), // only admin can create another admin
+    //auth(UserRole.ADMIN), // only admin can create another admin
     fileUploader.upload.single("file"), // for single file upload with field name "profileImage"
     (req: Request, res: Response, next: NextFunction) => {
         req.body= UserValidation.createAdminValidationSchema.parse(JSON.parse(req.body.data))

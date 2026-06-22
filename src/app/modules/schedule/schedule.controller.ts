@@ -17,7 +17,7 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
     })
 });
 
-
+//get all schedules data...........
 const schedulesForDoctor = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
     //pagination and fillters
     const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
