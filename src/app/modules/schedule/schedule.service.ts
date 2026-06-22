@@ -100,18 +100,23 @@ const schedulesForDoctor = async (
         AND: andConditions
     } : {}
 
+    // for getting specific doctor schedule
     const doctorSchedules = await prisma.doctorSchedules.findMany({
         where: {
-            doctor: {
+            doctor: { // from doctorSchedules table -doctor field , to connect with doctor table and then email field
                 email: user.email
             }
         },
-        select: {
+        select: { // give schedules ids only
             scheduleId: true
         }
     });
+//console.log("doctorScheduleIds", doctorScheduleIds); ( will give all schedule ids as objects which are assigned to doctor)
 
+
+// so now I make an array of schedule ids
     const doctorScheduleIds = doctorSchedules.map(schedule => schedule.scheduleId);
+    
 
     const result = await prisma.schedule.findMany({
         where: {
