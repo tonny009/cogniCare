@@ -13,11 +13,13 @@ router.get(
 
 router.post(
     "/",
+    auth(UserRole.ADMIN),
     ScheduleController.insertIntoDB
 )
 
 router.delete(
     "/:id", //this id should be written same in controller file (req.params.id)
+    auth(UserRole.ADMIN),
     ScheduleController.deleteScheduleFromDB
 )
 export const ScheduleRoutes = router;
