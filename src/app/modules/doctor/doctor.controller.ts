@@ -21,7 +21,7 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
-/*const updateIntoDB = catchAsync(async (req: Request, res: Response) => {
+const updateIntoDB = catchAsync(async (req: Request, res: Response) => {
 
     const { id } = req.params;
 
@@ -33,10 +33,10 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
         message: "Doctor updated successfully!",
         data: result
     })
-})*/
+})
 
 
 export const DoctorController = {
     getAllFromDB,
-    //updateIntoDB
+    updateIntoDB
 }
