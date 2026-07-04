@@ -49,6 +49,7 @@ model Doctor {
   user User @relation(fields: [email], references: [email]) 
 
   doctorSChedules DoctorSchedules[] // as with doctor table later we create connection with DoctorSChedules model, so we need to add this field to doctor model as well, this will help us to get the schedules of a doctor when we query the doctor data
+  doctorSpecialties DoctorSpecialties[]
 
   @@map("doctors")
 }
