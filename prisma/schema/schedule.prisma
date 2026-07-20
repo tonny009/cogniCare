@@ -6,6 +6,7 @@ model Schedule{
     updatedAt   DateTime @updatedAt
 
     doctorSChedules DoctorSchedules[] //for below connections with DoctorSchedules model
+    appointments Appointment[] //for below connections with Appointment model
     @@map("schedules")  
 }
 

@@ -21,6 +21,28 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+const getAISuggessions = catchAsync(async (req: Request, res: Response) => {
+    const result = await DoctorService.getAISuggessions(req.body);
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'AI suggestions fetched successfully',
+        data: result,
+    });
+});
+
+const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result = await DoctorService.getByIdFromDB(id);
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'Doctor retrieval successfully',
+        data: result,
+    });
+});
+
+
 const updateIntoDB = catchAsync(async (req: Request, res: Response) => {
 
     const { id } = req.params;
@@ -38,5 +60,7 @@ const updateIntoDB = catchAsync(async (req: Request, res: Response) => {
 
 export const DoctorController = {
     getAllFromDB,
-    updateIntoDB
+    updateIntoDB,
+    getAISuggessions,
+    getByIdFromDB
 }
