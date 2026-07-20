@@ -7,7 +7,7 @@ import { IJWTPayload } from "../../types/common";
 
 const createAppointment = catchAsync(async (req: Request & { user?: IJWTPayload }, res: Response) => {
     const user = req.user;
-    const result = await AppointmentService.createAppointment(user as IJWTPayload, req.body);
+    const result = await AppointmentService.createAppointment(user, req.body);
 
     sendResponse(res, {
         statusCode: 201,

@@ -1,8 +1,14 @@
 import { prisma } from "../../shared/prisma";
 import { IJWTPayload } from "../../types/common";
 import { v4 as uuidv4 } from 'uuid';
+import httpStatus from "http-status";
+import ApiError from "../../error/ApiError";
 
-const createAppointment = async (user: IJWTPayload, payload: { doctorId: string, scheduleId: string }) => {
+const createAppointment = async (user: IJWTPayload | undefined, payload: { doctorId: string, scheduleId: string }) => {
+    if (!user?.email) {
+        throw new ApiError(httpStatus.UNAUTHORIZED, "You are not authorized!");
+    }
+
     const patientData = await prisma.patient.findUniqueOrThrow({
         where: {
             email: user.email
@@ -26,6 +32,8 @@ const createAppointment = async (user: IJWTPayload, payload: { doctorId: string,
 
     const videoCallingId = uuidv4();
 
+
+    // used transaction to ensure that all the operations are completed successfully
     const result = await prisma.$transaction(async (tnx) => {
         const appointmentData = await tnx.appointment.create({
             data: {

@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post(
     "/",
-    //auth(UserRole.PATIENT),
+    auth(UserRole.PATIENT),
     AppointmentController.createAppointment
 )
 

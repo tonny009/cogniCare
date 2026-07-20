@@ -12,15 +12,15 @@ const login= catchAsync(async(req:Request,res:Response)=>{
 
 // set in the cookie
      res.cookie("accessToken", accessToken, {
-        secure: true,
+        secure: process.env.NODE_ENV === "production",
         httpOnly: true,
-        sameSite: "none",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 1000 * 60 * 60
     })
     res.cookie("refreshToken", refreshToken, {
-        secure: true,
+        secure: process.env.NODE_ENV === "production",
         httpOnly: true,
-        sameSite: "none",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 1000 * 60 * 60 * 24 * 90
     })
 
